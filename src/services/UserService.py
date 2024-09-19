@@ -26,3 +26,17 @@ class UserService():
         except Exception as ex:
             print(f"Error al crear usuario: {ex}")
             return None
+
+    def profile_user(self,id_token):
+        try:
+            # Obtener la conexión a Firebase
+            connection = get_connection()
+
+            # Crear un nuevo usuario en Firebase Authentication
+            auth = connection.auth()
+            decoded_token  = auth.get_account_info(id_token)
+            
+            return decoded_token['users']
+        except Exception as ex:
+            print(f"Error al crear usuario: {ex}")
+            return None

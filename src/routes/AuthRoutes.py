@@ -25,13 +25,13 @@ def login():
         if (authenticated_user != None):
             #encoded_token = Security.generate_token(authenticated_user)
             encoded_token = authenticated_user["idToken"]
-            return jsonify({'success': True, 'token': encoded_token})
+            return jsonify({'success': True, 'token': f"Bearer {encoded_token}"})
         else:
             response = jsonify({'message': 'Unauthorized'})
             return response, 401
     except Exception as ex:
         print(f"Ocurrió un error: {ex}")
-        return jsonify({'message': "ERROR", 'success': False})
+        return jsonify({'message': "ERROR", 'success': False}), 401
         
 @auth_bp.route('/logout')
 def logout():
