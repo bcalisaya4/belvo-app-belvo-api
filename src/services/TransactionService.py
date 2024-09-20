@@ -30,3 +30,15 @@ class TransactionService():
         except Exception as ex:
             print(f"Error al traer lista: {ex}")
             return None
+    
+    def info_balance(self, response):
+        data = response["results"]
+        ingresos = 0
+        egresos = 0
+        for item in data:
+            if item["type"] == "INFLOW":
+                ingresos = ingresos + item["amount"]
+            elif item["type"] == "OUTFLOW":
+                egresos = egresos + item["amount"]
+        balance = ingresos - egresos
+        return balance

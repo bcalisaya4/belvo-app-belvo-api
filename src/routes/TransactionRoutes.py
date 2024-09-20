@@ -20,14 +20,16 @@ def list_transactions():
 
         # Registrar al usuario mediante AuthService
         transactionService = TransactionService()
+        transactions_list = None
         print("router transaction")
         if account_id:
             transactions_list = transactionService.list_transactions(account_id)
+            balance = transactionService.info_balance(transactions_list)
         else:
             transactions_list = transactionService.list_transactions()
 
         
-        return jsonify({'success': True, 'data': transactions_list["results"]}), 200
+        return jsonify({'success': True, 'data': transactions_list["results"], 'balance': balance}), 200
     except Exception as ex:
         # Manejo de errores
         return jsonify({'success': False, 'message': f"Error: {str(ex)}"}), 500
