@@ -13,6 +13,14 @@ $ cd belvo-app-belvo-api
 $ pip install -r requirements.txt
 ```
 
+# Flask
+### Run app for develop 
+
+
+```
+$ python main.py
+```
+In flask, Default port is `8001`
 
 # Docker
 ### Run app for develop with docker
@@ -22,5 +30,3 @@ $ mv docker-compose.yml ../
 
 $ docker compose up -d
 ```
-
-In flask, Default port is `8001`
