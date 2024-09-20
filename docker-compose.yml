@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  belvo_api:
+    container_name: belvo_api
+    networks:
+      - belvo-app
+    env_file:
+      - "./belvo-app-belvo-api/.env"
+    build: 
+      context: ./belvo-app-belvo-api
+      dockerfile: Dockerfile
+    expose:
+      - "80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sampling_api.rule=Host(`api.sampling.ai`)"
+      - "traefik.http.routers.sampling_api.entrypoints=websecure"
+      - "traefik.http.routers.sampling_api.tls.certresolver=ssl"
+      - "traefik.sampling_api.headers.SSLRedirect=true"
+
+
+  
+  belvo_web:
+    container_name: belvo_web
+    networks:
+      - sampling-ai
+    command: yarn start
+    build: 
+      context: ./belvo-app-belvo-web
+      dockerfile: Dockerfile
+    expose:
+      - "80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sampling_web.rule=Host(`sampling.ai`)"
+      - "traefik.http.routers.sampling_web.entrypoints=websecure"
+      - "traefik.http.routers.sampling_web.tls.certresolver=ssl"
+      - "traefik.sampling_web.headers.SSLRedirect=true"
+
+  
+volumes:
+  firebase:
