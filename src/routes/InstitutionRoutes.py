@@ -9,7 +9,7 @@ from src.models.UserModel import User
 ## Security
 #from src.utils.Security import Security
 # Services
-from src.services.InstitutionServices import InstitutionServices
+from src.services.InstitutionService import InstitutionService
 
 institution_bp = Blueprint('institution_bp', __name__)
 
@@ -18,11 +18,11 @@ def list_institutions():
     try:
 
         # Registrar al usuario mediante AuthService
-        institutionServices = InstitutionServices()
+        institutionService = InstitutionService()
         print("Creando institutions router")
-        institutions_list = institutionServices.list_institutions()
+        institutions_list = institutionService.list_institutions()
 
-        return jsonify({'success': True, 'users': institutions_list}), 200
+        return jsonify({'success': True, 'data': institutions_list["results"]}), 200
 
     except Exception as ex:
         # Manejo de errores

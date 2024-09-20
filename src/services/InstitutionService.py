@@ -6,19 +6,16 @@ from src.database.db_firebase import get_connection
 #from src.models.UserModel import User
 from config import Config
 
-class AccountService():
+class InstitutionService():
+    
 
-    def list_account(self, institution_name= None):
+    def list_institutions(self):
         try:
             belvo_api_url = Config.BELVO_API_URL
             belvo_api_secret_id = Config.BELVO_API_SECRET_ID
             belvo_api_secret_password = Config.BELVO_API_SECRET_PASSWORD
             # Obtener la conexión a Firebase
-            if institution_name:
-                response = requests.get(f"{belvo_api_url}/accounts?institution__in={institution_name}", auth=HTTPBasicAuth(belvo_api_secret_id, belvo_api_secret_password))
-            else:
-                response = requests.get(f"{belvo_api_url}/accounts", auth=HTTPBasicAuth(belvo_api_secret_id, belvo_api_secret_password))
-                
+            response = requests.get(f"{belvo_api_url}/institutions", auth=HTTPBasicAuth(belvo_api_secret_id, belvo_api_secret_password))
             if response.status_code == 200:
                 print("Solicitud exitosa!")
                 # Para ver el contenido de la respuesta en formato JSON
