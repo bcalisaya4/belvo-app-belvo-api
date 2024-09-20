@@ -14,7 +14,7 @@ services:
       - "80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sampling_api.rule=Host(`api.sampling.ai`)"
+      - "traefik.http.routers.sampling_api.rule=Host(`belvo-api.bryancalisaya.lat`)"
       - "traefik.http.routers.sampling_api.entrypoints=websecure"
       - "traefik.http.routers.sampling_api.tls.certresolver=ssl"
       - "traefik.sampling_api.headers.SSLRedirect=true"
@@ -33,7 +33,7 @@ services:
       - "80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sampling_web.rule=Host(`sampling.ai`)"
+      - "traefik.http.routers.sampling_web.rule=Host(`belvo-api.bryancalisaya.lat`)"
       - "traefik.http.routers.sampling_web.entrypoints=websecure"
       - "traefik.http.routers.sampling_web.tls.certresolver=ssl"
       - "traefik.sampling_web.headers.SSLRedirect=true"
