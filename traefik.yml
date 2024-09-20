@@ -1,0 +1,35 @@
+version: "3.4"
+
+networks:
+  belvo-app:
+    name: belvo-app
+    driver: bridge
+
+services:
+  traefik:
+    image: traefik:v2.4
+    container_name: belvo-app-traefik
+    networks:
+      - belvo-app
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/belvo-app/letsencrypt:/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.ssl.acme.httpchallenge=true"
+      - "--certificatesresolvers.ssl.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.ssl.acme.email=bryancalisaya@gmail.com"
+      - "--certificatesresolvers.ssl.acme.storage=/letsencrypt/acmes.json"
+      - "--certificatesresolvers.ssl.acme.tlschallenge=true"
+    restart: always
