@@ -8,13 +8,19 @@ Using Flask to build a Restful API Server with Swagger document.
 Install with pip:
 
 ```
+$ cd belvo-app-belvo-api
+
 $ pip install -r requirements.txt
 ```
 
 
-## Run Flask
-### Run flask for develop
+# Docker
+### Run app for develop with docker
+
 ```
-$ python main.py
+$ mv docker-compose.yml ../
+
+$ docker compose up -d
 ```
+
 In flask, Default port is `8001`
